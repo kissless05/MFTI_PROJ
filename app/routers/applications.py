@@ -10,8 +10,8 @@ router = APIRouter(prefix="/applications", tags=["Applications"])
 @router.post("/", response_model=schemas.ApplicationOut)
 def create_application(application: schemas.ApplicationCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     new_app = models.Application(
-        event_name=application.event_name,
         motivation_text=application.motivation_text,
+        position=application.position,
         user_id=current_user.id
     )
     db.add(new_app)
