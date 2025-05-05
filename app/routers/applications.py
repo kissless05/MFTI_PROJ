@@ -5,12 +5,14 @@ from app import models, schemas
 from app.database import get_db
 from app.auth import get_current_user
 
-router = APIRouter(prefix="/applications", tags=["Applications"])
+router = APIRouter(
+    prefix="/applications",
+    tags=["applications"]
+)
 
 @router.post("/", response_model=schemas.ApplicationOut)
 def create_application(application: schemas.ApplicationCreate, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     new_app = models.Application(
-        motivation_text=application.motivation_text,
         position=application.position,
         user_id=current_user.id
     )

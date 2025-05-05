@@ -28,7 +28,8 @@ class ApplicationBase(BaseModel):
     content: Optional[str] = None
 
 class ApplicationCreate(ApplicationBase):
-    pass
+    title: str
+    content: Optional[str] = None
 
 class Application(ApplicationBase):
     id: int

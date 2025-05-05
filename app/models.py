@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 from .database import Base
 from datetime import datetime
 
+
 class User(Base):
     __tablename__ = "users"
 
@@ -15,18 +16,18 @@ class User(Base):
     applications = relationship("Application", back_populates="user")
     reviews = relationship("Review", back_populates="user")
 
+
 class Application(Base):
     __tablename__ = "applications"
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
-    motivation_text = Column(String)
-    position = Column(String)
+    position = Column(String, index=True)
     status = Column(String, default="pending")
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="applications")
-    reviews = relationship("Review", back_populates="application", cascade="all, delete-orphan")
+    reviews = relationship("Review", back_populates="application")
 
 class Review(Base):
     __tablename__ = "reviews"
